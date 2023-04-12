@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VikoTourismInformationCenter.Data;
 
@@ -11,9 +12,11 @@ using VikoTourismInformationCenter.Data;
 namespace VikoTourismInformationCenter.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230412143232_turismCenterModels")]
+    partial class turismCenterModels
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -346,14 +349,9 @@ namespace VikoTourismInformationCenter.Data.Migrations
                     b.Property<int>("ExcursionId")
                         .HasColumnType("int");
 
-                    b.Property<int>("PlaceId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ExcursionId");
-
-                    b.HasIndex("PlaceId");
 
                     b.ToTable("ExcursionsPlaces");
                 });
@@ -634,15 +632,7 @@ namespace VikoTourismInformationCenter.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("VikoTourismInformationCenter.Models.Places", "Place")
-                        .WithMany()
-                        .HasForeignKey("PlaceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Excursion");
-
-                    b.Navigation("Place");
                 });
 
             modelBuilder.Entity("VikoTourismInformationCenter.Models.Headphones", b =>
