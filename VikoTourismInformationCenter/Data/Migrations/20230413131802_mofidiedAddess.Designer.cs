@@ -12,15 +12,15 @@ using VikoTourismInformationCenter.Data;
 namespace VikoTourismInformationCenter.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230412143232_turismCenterModels")]
-    partial class turismCenterModels
+    [Migration("20230413131802_mofidiedAddess")]
+    partial class mofidiedAddess
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.3")
+                .HasAnnotation("ProductVersion", "7.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -247,9 +247,10 @@ namespace VikoTourismInformationCenter.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("HouseNo")
+                    b.Property<string>("HouseNo")
+                        .IsRequired()
                         .HasMaxLength(10)
-                        .HasColumnType("int");
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<int>("PostalCode")
                         .HasMaxLength(5)
@@ -349,9 +350,14 @@ namespace VikoTourismInformationCenter.Data.Migrations
                     b.Property<int>("ExcursionId")
                         .HasColumnType("int");
 
+                    b.Property<int>("PlaceId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ExcursionId");
+
+                    b.HasIndex("PlaceId");
 
                     b.ToTable("ExcursionsPlaces");
                 });
@@ -525,7 +531,7 @@ namespace VikoTourismInformationCenter.Data.Migrations
                     b.ToTable("WorkHours");
                 });
 
-            modelBuilder.Entity("VikoTourismInformationCenter.Models.ApplicationUser", b =>
+            modelBuilder.Entity("VikoServiceManager.Models.ApplicationUser", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
@@ -596,7 +602,7 @@ namespace VikoTourismInformationCenter.Data.Migrations
 
             modelBuilder.Entity("VikoTourismInformationCenter.Models.Excursions", b =>
                 {
-                    b.HasOne("VikoTourismInformationCenter.Models.ApplicationUser", "ApplicationUser")
+                    b.HasOne("VikoServiceManager.Models.ApplicationUser", "ApplicationUser")
                         .WithMany()
                         .HasForeignKey("ApplicationUserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -632,7 +638,15 @@ namespace VikoTourismInformationCenter.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("VikoTourismInformationCenter.Models.Places", "Place")
+                        .WithMany()
+                        .HasForeignKey("PlaceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Excursion");
+
+                    b.Navigation("Place");
                 });
 
             modelBuilder.Entity("VikoTourismInformationCenter.Models.Headphones", b =>
@@ -676,7 +690,7 @@ namespace VikoTourismInformationCenter.Data.Migrations
 
             modelBuilder.Entity("VikoTourismInformationCenter.Models.PlacesContacts", b =>
                 {
-                    b.HasOne("VikoTourismInformationCenter.Models.ApplicationUser", "ApplicationUser")
+                    b.HasOne("VikoServiceManager.Models.ApplicationUser", "ApplicationUser")
                         .WithMany()
                         .HasForeignKey("ApplicationUserId")
                         .OnDelete(DeleteBehavior.Cascade)

@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using VikoServiceManager.Models;
 using VikoTourismInformationCenter.Models;
 
 namespace VikoTourismInformationCenter.Data
