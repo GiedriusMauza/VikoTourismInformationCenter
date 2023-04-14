@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis.Options;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using VikoTourismInformationCenter.Data;
 using VikoTourismInformationCenter.Models;
@@ -21,11 +22,31 @@ namespace VikoTourismInformationCenter.Controllers
         }
 
         // GET: Languages
-        public async Task<IActionResult> Index(string search)
+        public async Task<IActionResult> Index(string search, string sortOrder)
         {
 
-            //Index action method will return a view with a student records based on what a user specify the value in textbox  
-            return View(await _context.Languages.Where(x => x.Language == search || search == null).ToListAsync());
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+
+            var languages =  _context.Languages.Select(x => x);
+
+
+            if (!String.IsNullOrEmpty(search))
+            {
+                //Index action method will return a view with a student records based on what a user specify the value in textbox  
+                return View(await _context.Languages.Where(x => x.Language.Contains(search) || search == null).ToListAsync());
+            }
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    languages = languages.OrderByDescending(s => s.Language);
+                    break;
+                default:
+                    languages = languages.OrderBy(s => s.Language);
+                    break;
+            }
+            return View(languages);
+
+
              
         }
 

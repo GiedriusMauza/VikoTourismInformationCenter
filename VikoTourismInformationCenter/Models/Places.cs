@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace VikoTourismInformationCenter.Models
 {
@@ -6,11 +8,13 @@ namespace VikoTourismInformationCenter.Models
     {
         [Required]
         public int Id { get; set; }
-        [Required]
+        [DefaultValue(true)]
         public Addresses? Address { get; set; }
         [Required]
         public string? Name { get; set; }
         [Required]
         public string? Description { get; set; }
+        [NotMapped]
+        public int? AddressIdValue { get; set; }
     }
 }

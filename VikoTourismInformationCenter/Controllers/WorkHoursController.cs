@@ -22,9 +22,23 @@ namespace VikoTourismInformationCenter.Controllers
         // GET: WorkHours
         public async Task<IActionResult> Index()
         {
-              return _context.WorkHours != null ? 
-                          View(await _context.WorkHours.ToListAsync()) :
-                          Problem("Entity set 'ApplicationDbContext.WorkHours'  is null.");
+            var workHoursList = await _context.WorkHours.ToListAsync();
+            var placesList = await _context.Places.ToListAsync();
+
+            foreach (var hours in workHoursList)
+            {
+                if (hours != null && hours.Place != null)
+                {
+                    hours.PlaceName = placesList.FirstOrDefault(x => x == hours.Place).Name;
+                }
+                else
+                {
+                    hours.PlaceName = "None";
+                }
+
+            }
+
+            return View(workHoursList);
         }
 
         // GET: WorkHours/Details/5

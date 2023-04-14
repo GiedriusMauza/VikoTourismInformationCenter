@@ -20,11 +20,10 @@ namespace VikoTourismInformationCenter.Controllers
         }
 
         // GET: Headphones
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string search)
         {
-              return _context.Headphones != null ? 
-                          View(await _context.Headphones.ToListAsync()) :
-                          Problem("Entity set 'ApplicationDbContext.Headphones'  is null.");
+            //Index action method will return a view with a student records based on what a user specify the value in textbox  
+            return View(await _context.Headphones.Where(x => x.Model.Contains(search) || search == null).ToListAsync());
         }
 
         // GET: Headphones/Details/5

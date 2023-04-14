@@ -20,11 +20,10 @@ namespace VikoTourismInformationCenter.Controllers
         }
 
         // GET: Categories
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string search)
         {
-              return _context.Categories != null ? 
-                          View(await _context.Categories.ToListAsync()) :
-                          Problem("Entity set 'ApplicationDbContext.Categories'  is null.");
+            //Index action method will return a view with a student records based on what a user specify the value in textbox  
+            return View(await _context.Categories.Where(x => x.Name.Contains(search) || search == null).ToListAsync());
         }
 
         // GET: Categories/Details/5

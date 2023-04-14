@@ -24,15 +24,15 @@ namespace VikoTourismInformationCenter.Controllers
         {
             if (option == "Name")
             {
-                return View(_context.Excursions.Where(x => x.Name == search || search == null).ToList());
+                return View(_context.Excursions.Where(x => x.Name.Contains(search) || search == null).ToList());
             }
             else if (option == "Description")
             {
-                return View(_context.Excursions.Where(x => x.Description == search || search == null).ToList());
+                return View(_context.Excursions.Where(x => x.Description.Contains(search) || search == null).ToList());
             }
             else if (option == "Price")
             {
-                return View(_context.Excursions.Where(x => x.Price.ToString() == search || search == null).ToList());
+                return View(_context.Excursions.Where(x => x.Price.ToString().Contains(search) || search == null).ToList());
             }
             else
             {

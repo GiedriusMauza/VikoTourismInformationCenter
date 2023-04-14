@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VikoTourismInformationCenter.Data;
 
@@ -11,9 +12,11 @@ using VikoTourismInformationCenter.Data;
 namespace VikoTourismInformationCenter.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230414110220_reviewPlaceDefaultValue")]
+    partial class reviewPlaceDefaultValue
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -287,6 +290,7 @@ namespace VikoTourismInformationCenter.Data.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ApplicationUserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Description")
@@ -400,7 +404,7 @@ namespace VikoTourismInformationCenter.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("AddressId")
+                    b.Property<int>("AddressId")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
@@ -508,7 +512,7 @@ namespace VikoTourismInformationCenter.Data.Migrations
                     b.Property<DateTime>("DateTo")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("PlaceId")
+                    b.Property<int>("PlaceId")
                         .HasColumnType("int");
 
                     b.Property<string>("WeekDays")
@@ -595,7 +599,9 @@ namespace VikoTourismInformationCenter.Data.Migrations
                 {
                     b.HasOne("VikoTourismInformationCenter.Models.ApplicationUser", "ApplicationUser")
                         .WithMany()
-                        .HasForeignKey("ApplicationUserId");
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("ApplicationUser");
                 });
@@ -651,7 +657,9 @@ namespace VikoTourismInformationCenter.Data.Migrations
                 {
                     b.HasOne("VikoTourismInformationCenter.Models.Addresses", "Address")
                         .WithMany()
-                        .HasForeignKey("AddressId");
+                        .HasForeignKey("AddressId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Address");
                 });
@@ -707,7 +715,9 @@ namespace VikoTourismInformationCenter.Data.Migrations
                 {
                     b.HasOne("VikoTourismInformationCenter.Models.Places", "Place")
                         .WithMany()
-                        .HasForeignKey("PlaceId");
+                        .HasForeignKey("PlaceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Place");
                 });

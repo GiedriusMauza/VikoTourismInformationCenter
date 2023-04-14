@@ -22,9 +22,24 @@ namespace VikoTourismInformationCenter.Controllers
         // GET: Reviews
         public async Task<IActionResult> Index()
         {
-              return _context.Reviews != null ? 
-                          View(await _context.Reviews.ToListAsync()) :
-                          Problem("Entity set 'ApplicationDbContext.Reviews'  is null.");
+
+            var reviewsList = await _context.Reviews.ToListAsync();
+            var placesList = await _context.Places.ToListAsync();
+
+            foreach (var review in reviewsList)
+            {
+                if (review != null && review.Place != null)
+                {
+                    review.PlaceName = placesList.FirstOrDefault(x => x == review.Place).Name;
+                }
+                else
+                {
+                    review.PlaceName = "None";
+                }
+                
+            }
+
+            return View(reviewsList);
         }
 
         // GET: Reviews/Details/5

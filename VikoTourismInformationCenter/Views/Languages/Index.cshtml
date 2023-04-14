@@ -13,7 +13,7 @@
 @using (Html.BeginForm("Index", "Languages", FormMethod.Get))
 {
     <p>
-        @Html.TextBox("search")<input type="submit" name="submit" value="Search" />
+        @Html.TextBox("search", null, new { @type = "search" } )<input type="submit" name="submit" value="Search" />
     </p>
 }
 
@@ -21,7 +21,7 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Language)
+                @Html.ActionLink("Language", "Index", new { sortOrder = ViewBag.NameSortParm })
             </th>
             <th></th>
         </tr>

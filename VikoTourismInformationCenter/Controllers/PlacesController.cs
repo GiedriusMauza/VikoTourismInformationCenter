@@ -22,9 +22,24 @@ namespace VikoTourismInformationCenter.Controllers
         // GET: Places
         public async Task<IActionResult> Index()
         {
-              return _context.Places != null ? 
-                          View(await _context.Places.ToListAsync()) :
-                          Problem("Entity set 'ApplicationDbContext.Places'  is null.");
+            var placesList = await _context.Places.ToListAsync();
+            var addressList = await _context.Addresses.ToListAsync();
+
+
+            foreach (var place in placesList)
+            {
+                if (place != null && place.Address != null)
+                {
+                    place.AddressIdValue = addressList.FirstOrDefault(x => x == place.Address).Id;
+                }
+                else
+                {
+                    place.AddressIdValue = 0;
+                }
+
+            }
+
+            return View(placesList);
         }
 
         // GET: Places/Details/5
