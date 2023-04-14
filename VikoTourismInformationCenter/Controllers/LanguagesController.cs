@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.CodeAnalysis.Options;
 using Microsoft.EntityFrameworkCore;
 using VikoTourismInformationCenter.Data;
 using VikoTourismInformationCenter.Models;
@@ -20,11 +21,12 @@ namespace VikoTourismInformationCenter.Controllers
         }
 
         // GET: Languages
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string search)
         {
-              return _context.Languages != null ? 
-                          View(await _context.Languages.ToListAsync()) :
-                          Problem("Entity set 'ApplicationDbContext.Languages'  is null.");
+
+            //Index action method will return a view with a student records based on what a user specify the value in textbox  
+            return View(await _context.Languages.Where(x => x.Language == search || search == null).ToListAsync());
+             
         }
 
         // GET: Languages/Details/5

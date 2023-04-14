@@ -20,11 +20,27 @@ namespace VikoTourismInformationCenter.Controllers
         }
 
         // GET: Excursions
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string option, string search)
         {
-              return _context.Excursions != null ? 
-                          View(await _context.Excursions.ToListAsync()) :
-                          Problem("Entity set 'ApplicationDbContext.Excursions'  is null.");
+            if (option == "Name")
+            {
+                return View(_context.Excursions.Where(x => x.Name == search || search == null).ToList());
+            }
+            else if (option == "Description")
+            {
+                return View(_context.Excursions.Where(x => x.Description == search || search == null).ToList());
+            }
+            else if (option == "Price")
+            {
+                return View(_context.Excursions.Where(x => x.Price.ToString() == search || search == null).ToList());
+            }
+            else
+            {
+                return _context.Excursions != null ?
+              View(await _context.Excursions.ToListAsync()) :
+              Problem("Entity set 'ApplicationDbContext.Excursions'  is null.");
+            }
+
         }
 
         // GET: Excursions/Details/5
@@ -150,14 +166,14 @@ namespace VikoTourismInformationCenter.Controllers
             {
                 _context.Excursions.Remove(excursions);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool ExcursionsExists(int id)
         {
-          return (_context.Excursions?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Excursions?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }
