@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace VikoTourismInformationCenter.Models
 {
@@ -10,6 +11,10 @@ namespace VikoTourismInformationCenter.Models
         public Excursions? Excursion { get; set; }
         [Required]
         public string? Model { get; set; }
+
+        [NotMapped]
+        [Display(Name = "Assigned for Excursion")]
+        public string? ExcursionName { get; set; }
 
     }
 }

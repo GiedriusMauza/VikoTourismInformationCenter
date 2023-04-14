@@ -6,6 +6,7 @@ using VikoTourismInformationCenter.Data;
 
 namespace VikoTourismInformationCenter.Controllers
 {
+    [Authorize] 
     public class RolesController : Controller
     {
 

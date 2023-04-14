@@ -6,6 +6,7 @@ using VikoTourismInformationCenter.Models;
 
 namespace VikoTourismInformationCenter.Controllers
 {
+    [Authorize]
     public class UserController : Controller
     {
         // dependency injection for DB and IdentityUser

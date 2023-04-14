@@ -7,6 +7,7 @@ using VikoTourismInformationCenter.Models;
 
 namespace VikoTourismInformationCenter.Controllers
 {
+    [Authorize]
     public class AccountController : Controller
     {
 

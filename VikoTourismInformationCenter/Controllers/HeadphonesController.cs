@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using VikoTourismInformationCenter.Models;
 
 namespace VikoTourismInformationCenter.Controllers
 {
+    [Authorize]
     public class HeadphonesController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -22,8 +24,31 @@ namespace VikoTourismInformationCenter.Controllers
         // GET: Headphones
         public async Task<IActionResult> Index(string search)
         {
-            //Index action method will return a view with a student records based on what a user specify the value in textbox  
-            return View(await _context.Headphones.Where(x => x.Model.Contains(search) || search == null).ToListAsync());
+            var headphonesList = await _context.Headphones.ToListAsync();
+            var excursionsList = await _context.Excursions.ToListAsync();
+
+            if (!String.IsNullOrEmpty(search))
+            {
+                //Index action method will return a view with a student records based on what a user specify the value in textbox  
+                return View(await _context.Headphones.Where(x => x.Model.Contains(search) || search == null).ToListAsync());
+            }
+
+            foreach (var headphone in headphonesList)
+            {
+                if (headphone != null && headphone.Excursion != null)
+                {
+                    headphone.ExcursionName = excursionsList.FirstOrDefault(x => x == headphone.Excursion).Name;
+                }
+                else
+                {
+                    headphone.ExcursionName = "None";
+                }
+
+            }
+
+            return View(headphonesList);
+
+            
         }
 
         // GET: Headphones/Details/5

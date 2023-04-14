@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using VikoTourismInformationCenter.Models;
 
 namespace VikoTourismInformationCenter.Controllers
 {
+    [Authorize]
     public class ExcursionsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -19,9 +21,54 @@ namespace VikoTourismInformationCenter.Controllers
             _context = context;
         }
 
-        // GET: Excursions
+        [HttpGet]
         public async Task<IActionResult> Index(string option, string search)
         {
+            var excursionList = await _context.Excursions.ToListAsync();
+            var userList = await _context.ApplicationUser.ToListAsync();
+            var languagesList = await _context.Languages.ToListAsync();
+            var excursionsLanguagesList = await _context.ExcursionsLanguages.ToListAsync();
+
+            // Languages
+            foreach (var excursion in excursionList)
+            {
+                if (excursion != null)
+                {
+                    var allexcursionItemsWithAssignedLang = excursionsLanguagesList.Where(x => x.Excursion == excursion);
+
+                    foreach (var item in allexcursionItemsWithAssignedLang)
+                    {
+                        var assignedLangList = languagesList.Where(x => x == item.Language);
+                        foreach (var item1 in assignedLangList)
+                        {
+                            excursion.LanguagesAvailable += item1.Language + "; ";
+                        }
+                    }
+
+
+
+                    /* excursion.LanguagesList = ;*/
+                }
+                else
+                {
+                    excursion.LanguagesAvailable = "None";
+                }
+            }
+
+            // Email
+            foreach (var excursion in excursionList)
+            {
+                if (excursion != null && excursion.ApplicationUser != null)
+                {
+                    excursion.UserEmailAddress = userList.FirstOrDefault(x => x == excursion.ApplicationUser).Email;
+                }
+                else
+                {
+                    excursion.UserEmailAddress = "None";
+                }
+            }
+
+            // Search
             if (option == "Name")
             {
                 return View(_context.Excursions.Where(x => x.Name.Contains(search) || search == null).ToList());
@@ -43,8 +90,76 @@ namespace VikoTourismInformationCenter.Controllers
 
         }
 
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> PublicIndex(string option, string search)
+        {
+            var excursionList = await _context.Excursions.ToListAsync();
+            var userList = await _context.ApplicationUser.ToListAsync();
+            var languagesList = await _context.Languages.ToListAsync();
+            var excursionsLanguagesList = await _context.ExcursionsLanguages.ToListAsync();
+
+            // Languages
+            foreach (var excursion in excursionList)
+            {
+                if (excursion != null)
+                {
+                    var allexcursionItemsWithAssignedLang = excursionsLanguagesList.Where(x => x.Excursion == excursion);
+
+                    foreach (var item in allexcursionItemsWithAssignedLang)
+                    {
+                        var assignedLangList = languagesList.Where(x => x == item.Language);
+                        foreach (var item1 in assignedLangList)
+                        {
+                            excursion.LanguagesAvailable += item1.Language + "; ";
+                        }
+                    }
+                }
+                else
+                {
+                    excursion.LanguagesAvailable = "None";
+                }
+            }
+
+            // Email
+            foreach (var excursion in excursionList)
+            {
+                if (excursion != null && excursion.ApplicationUser != null)
+                {
+                    excursion.UserEmailAddress = userList.FirstOrDefault(x => x == excursion.ApplicationUser).Email;
+                }
+                else
+                {
+                    excursion.UserEmailAddress = "None";
+                }
+            }
+            return _context.Excursions != null ?
+            View(await _context.Excursions.ToListAsync()) :
+            Problem("Entity set 'ApplicationDbContext.Excursions'  is null.");
+
+        }
+
         // GET: Excursions/Details/5
         public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null || _context.Excursions == null)
+            {
+                return NotFound();
+            }
+
+            var excursions = await _context.Excursions
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (excursions == null)
+            {
+                return NotFound();
+            }
+
+            return View(excursions);
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> PublicDetails(int? id)
         {
             if (id == null || _context.Excursions == null)
             {

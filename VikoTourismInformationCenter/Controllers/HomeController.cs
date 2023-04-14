@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using VikoTourismInformationCenter.Models;
@@ -17,7 +18,7 @@ namespace VikoTourismInformationCenter.Controllers
             _roleManager = roleManager;
             _userManager = userManager;
         }
-
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             if (!await _roleManager.RoleExistsAsync("Admin"))
@@ -33,6 +34,7 @@ namespace VikoTourismInformationCenter.Controllers
             return View();
         }
 
+        [AllowAnonymous]
         public IActionResult About()
         {
             return View();
