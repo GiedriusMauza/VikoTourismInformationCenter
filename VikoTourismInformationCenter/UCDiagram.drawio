@@ -1,0 +1,95 @@
+<mxfile host="app.diagrams.net" modified="2023-04-16T13:12:57.602Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36" etag="vGs6wRMcQ42pru2Imv30" version="21.1.8" type="device">
+  <diagram name="Page-1" id="VM2ooeGRHen-_dip7b1g">
+    <mxGraphModel dx="2039" dy="1173" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1700" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="ljiJiXtqEHrdHXFdLNxj-1" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="520" y="20" width="520" height="1040" as="geometry" />
+        </mxCell>
+        <mxCell id="ljiJiXtqEHrdHXFdLNxj-2" value="Administrorius" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+          <mxGeometry x="390" y="495" width="50" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="ljiJiXtqEHrdHXFdLNxj-3" value="Klientas" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+          <mxGeometry x="1120" y="750" width="50" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="ljiJiXtqEHrdHXFdLNxj-4" value="Darbuotojas" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+          <mxGeometry x="1120" y="180" width="50" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="ljiJiXtqEHrdHXFdLNxj-12" value="Pridėti kategoriją" style="ellipse;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="575" y="60" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ljiJiXtqEHrdHXFdLNxj-13" value="Pridėti vietą" style="ellipse;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="575" y="160" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ljiJiXtqEHrdHXFdLNxj-27" value="Pridėti kategoriją" style="ellipse;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="60" y="160" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ljiJiXtqEHrdHXFdLNxj-28" value="Pridėti kategoriją" style="ellipse;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="70" y="170" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ljiJiXtqEHrdHXFdLNxj-29" value="Pridėti kategoriją" style="ellipse;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="80" y="180" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ljiJiXtqEHrdHXFdLNxj-30" value="Peržiūrėti ekskursijų informaciją" style="ellipse;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="850" y="720" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ljiJiXtqEHrdHXFdLNxj-31" value="Keisti ekskursijos informacija" style="ellipse;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="730" y="545" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ljiJiXtqEHrdHXFdLNxj-45" style="edgeStyle=none;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0;entryDx=0;entryDy=0;labelBackgroundColor=default;strokeColor=default;fontFamily=Helvetica;fontSize=11;fontColor=default;endArrow=open;endFill=0;dashed=1;" edge="1" parent="1" source="ljiJiXtqEHrdHXFdLNxj-32" target="ljiJiXtqEHrdHXFdLNxj-31">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ljiJiXtqEHrdHXFdLNxj-46" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=11;fontFamily=Helvetica;fontColor=default;" vertex="1" connectable="0" parent="ljiJiXtqEHrdHXFdLNxj-45">
+          <mxGeometry x="-0.5075" y="2" relative="1" as="geometry">
+            <mxPoint x="-15" y="7" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ljiJiXtqEHrdHXFdLNxj-32" value="Keiti ekskursijos kainą" style="ellipse;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="850" y="460" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ljiJiXtqEHrdHXFdLNxj-33" value="Peržiūrėti ekskursijas" style="ellipse;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="850" y="360" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ljiJiXtqEHrdHXFdLNxj-34" value="Peržiūrėti vietų informaciją" style="ellipse;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="850" y="260" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ljiJiXtqEHrdHXFdLNxj-35" value="Peržiūrėti vietas" style="ellipse;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="850" y="160" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ljiJiXtqEHrdHXFdLNxj-36" value="Peržiūrėti kategorijas" style="ellipse;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="850" y="60" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ljiJiXtqEHrdHXFdLNxj-43" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0;exitDx=0;exitDy=0;entryX=1;entryY=1;entryDx=0;entryDy=0;endArrow=open;endFill=0;dashed=1;" edge="1" parent="1" source="ljiJiXtqEHrdHXFdLNxj-37" target="ljiJiXtqEHrdHXFdLNxj-39">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ljiJiXtqEHrdHXFdLNxj-44" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=11;fontFamily=Helvetica;fontColor=default;" vertex="1" connectable="0" parent="ljiJiXtqEHrdHXFdLNxj-43">
+          <mxGeometry x="-0.4424" relative="1" as="geometry">
+            <mxPoint x="-11" y="-8" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ljiJiXtqEHrdHXFdLNxj-37" value="Ištrinti darbuotoją" style="ellipse;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="720" y="640" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ljiJiXtqEHrdHXFdLNxj-38" value="Atnaujinti darbuotojo informaciją" style="ellipse;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="575" y="660" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ljiJiXtqEHrdHXFdLNxj-39" value="Įvesti informaciją apie naują darbuotoją" style="ellipse;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="575" y="560" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ljiJiXtqEHrdHXFdLNxj-40" value="Priskirti vietai kontaktinį asmenį" style="ellipse;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="575" y="460" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ljiJiXtqEHrdHXFdLNxj-41" value="Priskirti vietai darbo valandas" style="ellipse;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="575" y="360" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ljiJiXtqEHrdHXFdLNxj-42" value="Priskirti vietai adresą" style="ellipse;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="575" y="260" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ljiJiXtqEHrdHXFdLNxj-47" value="Priskirti vietą prie kategorijos" style="ellipse;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="570" y="760" width="120" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
