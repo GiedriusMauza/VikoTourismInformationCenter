@@ -6,12 +6,6 @@
 
 <h1>Excursions</h1>
 
-@if (ViewContext.HttpContext.User.IsInRole("Admin"))
-{
-    <p>
-        <a asp-action="Create">Create New</a>
-    </p>
-}
 @using (Html.BeginForm("Index", "Excursions", FormMethod.Get))
 {
     <p>

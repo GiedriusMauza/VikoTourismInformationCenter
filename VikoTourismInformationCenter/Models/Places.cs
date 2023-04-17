@@ -6,15 +6,15 @@ namespace VikoTourismInformationCenter.Models
 {
     public class Places
     {
-        [Required]
+        [ForeignKey("Addresses")]
         public int Id { get; set; }
-        [DefaultValue(true)]
-        public Addresses? Address { get; set; }
         [Required]
         public string? Name { get; set; }
         [Required]
         public string? Description { get; set; }
         [NotMapped]
         public int? AddressIdValue { get; set; }
+
+        public virtual Addresses? Addresses { get; set; }
     }
 }

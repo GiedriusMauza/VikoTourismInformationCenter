@@ -35,7 +35,7 @@ namespace VikoTourismInformationCenter.Controllers
             if (!String.IsNullOrEmpty(search))
             {
                 //Index action method will return a view with a student records based on what a user specify the value in textbox  
-                return View(await _context.Languages.Where(x => x.Language.Contains(search) || search == null).ToListAsync());
+                return View(await _context.Languages.Where(x => x.Language.StartsWith(search) || search == null).ToListAsync());
             }
             switch (sortOrder)
             {

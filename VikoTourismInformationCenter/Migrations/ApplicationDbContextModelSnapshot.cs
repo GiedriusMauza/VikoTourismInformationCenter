@@ -8,7 +8,7 @@ using VikoTourismInformationCenter.Data;
 
 #nullable disable
 
-namespace VikoTourismInformationCenter.Data.Migrations
+namespace VikoTourismInformationCenter.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -395,12 +395,6 @@ namespace VikoTourismInformationCenter.Data.Migrations
             modelBuilder.Entity("VikoTourismInformationCenter.Models.Places", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int?>("AddressId")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
@@ -412,8 +406,6 @@ namespace VikoTourismInformationCenter.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AddressId");
 
                     b.ToTable("Places");
                 });
@@ -534,7 +526,6 @@ namespace VikoTourismInformationCenter.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasDiscriminator().HasValue("ApplicationUser");
@@ -649,11 +640,13 @@ namespace VikoTourismInformationCenter.Data.Migrations
 
             modelBuilder.Entity("VikoTourismInformationCenter.Models.Places", b =>
                 {
-                    b.HasOne("VikoTourismInformationCenter.Models.Addresses", "Address")
-                        .WithMany()
-                        .HasForeignKey("AddressId");
+                    b.HasOne("VikoTourismInformationCenter.Models.Addresses", "Addresses")
+                        .WithOne("Places")
+                        .HasForeignKey("VikoTourismInformationCenter.Models.Places", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("Address");
+                    b.Navigation("Addresses");
                 });
 
             modelBuilder.Entity("VikoTourismInformationCenter.Models.PlacesCategories", b =>
@@ -710,6 +703,11 @@ namespace VikoTourismInformationCenter.Data.Migrations
                         .HasForeignKey("PlaceId");
 
                     b.Navigation("Place");
+                });
+
+            modelBuilder.Entity("VikoTourismInformationCenter.Models.Addresses", b =>
+                {
+                    b.Navigation("Places");
                 });
 #pragma warning restore 612, 618
         }

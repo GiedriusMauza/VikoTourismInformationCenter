@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace VikoTourismInformationCenter.Models
 {
@@ -21,5 +22,7 @@ namespace VikoTourismInformationCenter.Models
 
         [Required(ErrorMessage = "{0} is required")]
         public int PostalCode { get; set; }
+
+        public virtual Places? Places { get; set; }
     }
 }

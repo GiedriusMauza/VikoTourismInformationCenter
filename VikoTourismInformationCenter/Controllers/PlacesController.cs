@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -11,7 +10,6 @@ using VikoTourismInformationCenter.Models;
 
 namespace VikoTourismInformationCenter.Controllers
 {
-    [Authorize]
     public class PlacesController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -24,24 +22,8 @@ namespace VikoTourismInformationCenter.Controllers
         // GET: Places
         public async Task<IActionResult> Index()
         {
-            var placesList = await _context.Places.ToListAsync();
-            var addressList = await _context.Addresses.ToListAsync();
-
-
-            foreach (var place in placesList)
-            {
-                if (place != null && place.Address != null)
-                {
-                    place.AddressIdValue = addressList.FirstOrDefault(x => x == place.Address).Id;
-                }
-                else
-                {
-                    place.AddressIdValue = 0;
-                }
-
-            }
-
-            return View(placesList);
+            var applicationDbContext = _context.Places.Include(p => p.Addresses);
+            return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: Places/Details/5
@@ -53,6 +35,7 @@ namespace VikoTourismInformationCenter.Controllers
             }
 
             var places = await _context.Places
+                .Include(p => p.Addresses)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (places == null)
             {
@@ -65,6 +48,7 @@ namespace VikoTourismInformationCenter.Controllers
         // GET: Places/Create
         public IActionResult Create()
         {
+            ViewData["Id"] = new SelectList(_context.Addresses, "Id", "Id");
             return View();
         }
 
@@ -81,6 +65,7 @@ namespace VikoTourismInformationCenter.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["Id"] = new SelectList(_context.Addresses, "Id", "City", places.Id);
             return View(places);
         }
 
@@ -97,6 +82,7 @@ namespace VikoTourismInformationCenter.Controllers
             {
                 return NotFound();
             }
+            ViewData["Id"] = new SelectList(_context.Addresses, "Id", "City", places.Id);
             return View(places);
         }
 
@@ -132,6 +118,7 @@ namespace VikoTourismInformationCenter.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["Id"] = new SelectList(_context.Addresses, "Id", "City", places.Id);
             return View(places);
         }
 
@@ -144,6 +131,7 @@ namespace VikoTourismInformationCenter.Controllers
             }
 
             var places = await _context.Places
+                .Include(p => p.Addresses)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (places == null)
             {
