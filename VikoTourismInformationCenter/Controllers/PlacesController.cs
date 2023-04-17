@@ -52,17 +52,21 @@ namespace VikoTourismInformationCenter.Controllers
             return View();
         }
 
-        // POST: Places/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,Description")] Places places)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(places);
-                await _context.SaveChangesAsync();
+                try
+                {
+                    _context.Add(places);
+                    await _context.SaveChangesAsync();
+                }
+                catch
+                {
+                    TempData[SD.Error] = "Error. Address already assigned!";
+                }
                 return RedirectToAction(nameof(Index));
             }
             ViewData["Id"] = new SelectList(_context.Addresses, "Id", "City", places.Id);
@@ -86,9 +90,6 @@ namespace VikoTourismInformationCenter.Controllers
             return View(places);
         }
 
-        // POST: Places/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description")] Places places)
