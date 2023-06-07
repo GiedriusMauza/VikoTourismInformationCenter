@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.CodeAnalysis.Options;
 using Microsoft.EntityFrameworkCore;
 using VikoTourismInformationCenter.Data;
 using VikoTourismInformationCenter.Models;
@@ -26,8 +27,66 @@ namespace VikoTourismInformationCenter.Controllers
             return View(await applicationDbContext.ToListAsync());
         }
 
+        // GET: Public Places
+        public async Task<IActionResult> PublicIndex()
+        {
+            var placesList = await _context.Places.ToListAsync();
+            var categoriesList = await _context.Categories.ToListAsync();
+            var placesCategoriesList = await _context.PlacesCategories.ToListAsync();
+
+            // Categories
+            foreach (var place in placesList)
+            {
+                if (place != null)
+                {
+                    var allplacesItemsWithAssignedCategorie = placesCategoriesList.Where(x => x.Place == place);
+
+                    foreach (var item in allplacesItemsWithAssignedCategorie)
+                    {
+                        var assignedCategorieList = categoriesList.Where(x => x == item.Category);
+                        foreach (var item1 in assignedCategorieList)
+                        {
+                            place.CategoryName = item1.Name;
+                        }
+                    }
+                }
+                else
+                {
+                    place.CategoryName = "None";
+                }
+            }
+
+            /*            var applicationDbContext = _context.Places.Include(p => p.Addresses);
+                        return View(await applicationDbContext.ToListAsync());*/
+
+            ViewBag.Categories = categoriesList;
+            return _context.Places != null ?
+                View(await _context.Places.ToListAsync()) :
+                Problem("Entity set 'ApplicationDbContext.Places' is null.");
+
+        }
+
         // GET: Places/Details/5
         public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null || _context.Places == null)
+            {
+                return NotFound();
+            }
+
+            var places = await _context.Places
+                .Include(p => p.Addresses)
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (places == null)
+            {
+                return NotFound();
+            }
+
+            return View(places);
+        }
+
+        // GET: Public Places/Details/5
+        public async Task<IActionResult> PublicDetails(int? id)
         {
             if (id == null || _context.Places == null)
             {

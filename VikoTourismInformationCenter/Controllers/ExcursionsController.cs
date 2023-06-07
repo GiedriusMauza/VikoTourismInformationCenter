@@ -133,6 +133,7 @@ namespace VikoTourismInformationCenter.Controllers
                     excursion.UserEmailAddress = "None";
                 }
             }
+
             return _context.Excursions != null ?
             View(await _context.Excursions.ToListAsync()) :
             Problem("Entity set 'ApplicationDbContext.Excursions'  is null.");

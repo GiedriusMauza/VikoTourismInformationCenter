@@ -1,0 +1,27 @@
+﻿@model IEnumerable<VikoTourismInformationCenter.Models.Places>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Amazing places to visit</h1>
+
+
+@foreach (var category in ViewBag.Categories)
+{
+    <h3>@category.Name</h3>
+    <div class="card-deck">
+        @foreach (var item in Model.Where(x => x.CategoryName == category.Name))
+        {
+            <div class="card mt-3">
+                <h5 class="card-header">@Html.DisplayFor(modelItem => item.Name) </h5>
+                <div class="card-body">
+                    <p class="card-text">@Html.DisplayFor(modelItem => item.Description)</p>
+                    <p class="card-text">@Html.DisplayFor(modelItem => item.CategoryName)</p>
+                    <a asp-action="PublicDetails" asp-route-id="@item.Id">More Information</a>
+                </div>
+            </div>
+        }
+    </div>
+}
+

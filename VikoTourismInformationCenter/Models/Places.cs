@@ -16,5 +16,9 @@ namespace VikoTourismInformationCenter.Models
         public int? AddressIdValue { get; set; }
 
         public virtual Addresses? Addresses { get; set; }
+
+        [NotMapped]
+        [Display(Name = "Category Name")]
+        public string? CategoryName { get; set; }
     }
 }
