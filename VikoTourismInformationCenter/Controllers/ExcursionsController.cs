@@ -174,6 +174,15 @@ namespace VikoTourismInformationCenter.Controllers
                 return NotFound();
             }
 
+            ViewBag.Headphones = await _context.Headphones.ToListAsync();
+
+            ViewBag.Languages = await _context.Languages.ToListAsync();
+            ViewBag.ExcursionsLanguages = await _context.ExcursionsLanguages.ToListAsync();
+
+            ViewBag.Places = await _context.Places.ToListAsync();
+            ViewBag.ExcursionsPlaces = await _context.ExcursionsPlaces.ToListAsync();
+
+            ViewBag.ApplicationUser = await _context.ApplicationUser.ToListAsync();
             return View(excursions);
         }
 
