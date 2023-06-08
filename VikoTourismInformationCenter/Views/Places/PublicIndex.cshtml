@@ -5,11 +5,11 @@
 }
 
 <h1>Amazing places to visit</h1>
-
+<hr></hr>
 
 @foreach (var category in ViewBag.Categories)
 {
-    <h3>@category.Name</h3>
+    <h3 class ="mt-2">@category.Name</h3>
     <div class="card-deck">
         @foreach (var item in Model.Where(x => x.CategoryName == category.Name))
         {
@@ -17,7 +17,6 @@
                 <h5 class="card-header">@Html.DisplayFor(modelItem => item.Name) </h5>
                 <div class="card-body">
                     <p class="card-text">@Html.DisplayFor(modelItem => item.Description)</p>
-                    <p class="card-text">@Html.DisplayFor(modelItem => item.CategoryName)</p>
                     <a asp-action="PublicDetails" asp-route-id="@item.Id">More Information</a>
                 </div>
             </div>

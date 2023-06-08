@@ -101,6 +101,11 @@ namespace VikoTourismInformationCenter.Controllers
                 return NotFound();
             }
 
+            ViewBag.ApplicationUser = await _context.ApplicationUser.ToListAsync();
+            ViewBag.PlacesContacts = await _context.PlacesContacts.ToListAsync();
+
+            ViewBag.WorkHours = await _context.WorkHours.ToListAsync();
+            ViewBag.Reviews = await _context.Reviews.ToListAsync();
             return View(places);
         }
 
