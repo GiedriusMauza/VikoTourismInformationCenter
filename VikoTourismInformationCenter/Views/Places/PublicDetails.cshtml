@@ -31,7 +31,12 @@
             {
                 if (@item.Place == Model)
                 {
-                    <p>From: @item.DateFrom.ToString("yyyy-MM-dd") To: @item.DateTo.ToString("yyyy-MM-dd"), Week Days: @item.WeekDays</p>
+                    <ul class="list-unstyled">
+                        <li>From: @item.DateFrom.ToString("yyyy-MM-dd")</li>
+                        <li>To: @item.DateTo.ToString("yyyy-MM-dd")</li>
+                        <li>Week Days: @item.WeekDays</li>
+                    </ul>
+                    
                 }
             }
 
@@ -48,7 +53,11 @@
                     {
                         if (placeUser.Places == Model)
                         {
-                            <p>@user.FirstName @user.LastName @user.Email @user.PhoneNumber</p>
+                            <ul class="list-unstyled">
+                                <li>@user.FirstName @user.LastName</li>
+                                <li>@user.Email</li>
+                                <li>@user.PhoneNumber</li>
+                            </ul>
                         }
                         
                     }
@@ -59,14 +68,23 @@
 </div>
 
 <div>
-    <h4>Reviews</h4>
+    <hr></hr>
+    <h4 class="mb-3">Reviews</h4>
     @foreach (var item in ViewBag.Reviews)
     {
         if (@item.Place == Model)
         {
-            <p>@item.Name</p>
-            <p>@item.Comment</p>
-            <p>@item.Date.ToString("yyyy-MM-dd")</p>
+            <figure>
+                <blockquote class="blockquote">
+                    <p>@item.Comment</p>
+                </blockquote>
+                <figcaption class="blockquote-footer">
+                    <span>@item.Name</span> at <cite title="Source Title">@item.Date.ToString("yyyy-MM-dd")</cite>
+                </figcaption>
+            </figure>
+            
+
+            
         }
     }
 </div>

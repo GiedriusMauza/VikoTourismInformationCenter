@@ -112,7 +112,13 @@ namespace VikoTourismInformationCenter.Controllers
         // GET: Places/Create
         public IActionResult Create()
         {
-            ViewData["Id"] = new SelectList(_context.Addresses, "Id", "Id");
+            var addresses = _context.Addresses.Select(a => new
+            {
+                a.Id,
+                FullAddress = $"{a.Street}, {a.City}, {a.HouseNo}"
+            }).ToList();
+
+            ViewData["Id"] = new SelectList(addresses, "Id", "FullAddress");
             return View();
         }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -65,6 +66,7 @@ namespace VikoTourismInformationCenter.Controllers
         // GET: Reviews/Create
         public IActionResult Create()
         {
+            ViewData["Place"] = new SelectList(_context.Places, "Id", "Name");
             return View();
         }
 
@@ -73,14 +75,20 @@ namespace VikoTourismInformationCenter.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Comment,Date")] Reviews reviews)
+        public async Task<IActionResult> Create([Bind("Id,Name,Comment,Date,Place")] Reviews reviews)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(reviews);
+                var placeId = HttpContext.Request.Form["Place"].ToString();
+                var place = await _context.Places.FindAsync(int.Parse(placeId));
+                reviews.Place = place;
+
+                _context.Add(reviews);                
                 await _context.SaveChangesAsync();
+                ViewData["Place"] = new SelectList(_context.Places, "Id", "Name", reviews.Place);
                 return RedirectToAction(nameof(Index));
             }
+            
             return View(reviews);
         }
 
