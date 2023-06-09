@@ -72,6 +72,7 @@ namespace VikoTourismInformationCenter.Controllers
         // GET: Headphones/Create
         public IActionResult Create()
         {
+            ViewData["Excursions"] = new SelectList(_context.Excursions, "Id", "Name");
             return View();
         }
 
@@ -84,8 +85,13 @@ namespace VikoTourismInformationCenter.Controllers
         {
             if (ModelState.IsValid)
             {
+                var excursionId = HttpContext.Request.Form["Excursion"].ToString();
+                var excursion = await _context.Excursions.FindAsync(int.Parse(excursionId));
+                headphones.Excursion = excursion;
+
                 _context.Add(headphones);
                 await _context.SaveChangesAsync();
+                ViewData["Excursions"] = new SelectList(_context.Places, "Id", "Name", headphones.Excursion);
                 return RedirectToAction(nameof(Index));
             }
             return View(headphones);

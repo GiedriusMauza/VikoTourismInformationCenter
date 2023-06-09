@@ -189,6 +189,7 @@ namespace VikoTourismInformationCenter.Controllers
         // GET: Excursions/Create
         public IActionResult Create()
         {
+            ViewData["User"] = new SelectList(_context.ApplicationUser, "Id", "FirstName");
             return View();
         }
 
@@ -197,12 +198,18 @@ namespace VikoTourismInformationCenter.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description,Price")] Excursions excursions)
+        public async Task<IActionResult> Create([Bind("Id,Name,Description,Price,ApplicationUser")] Excursions excursions)
         {
             if (ModelState.IsValid)
             {
+                // Application User
+                var userId = HttpContext.Request.Form["ApplicationUser"].ToString();
+                var user = await _context.ApplicationUser.FindAsync(userId);
+                excursions.ApplicationUser = user;
+
                 _context.Add(excursions);
                 await _context.SaveChangesAsync();
+                ViewData["User"] = new SelectList(_context.ApplicationUser, "Id", "FirstName", excursions.ApplicationUser);
                 return RedirectToAction(nameof(Index));
             }
             return View(excursions);

@@ -21,7 +21,7 @@
             @Html.DisplayFor(model => model.Price)€
         </dd>
         <dt class="col-sm-2">
-            Available Excursion Inventory
+            Tour Inventory
         </dt>
         <dd class="col-sm-10">
             @foreach (var item in ViewBag.Headphones)
@@ -93,7 +93,7 @@
             Guide
         </dt>
         <dd class="col-sm-10">
-            <span>@Model.ApplicationUser.FirstName @Model.ApplicationUser.LastName, @Model.ApplicationUser.PhoneNumber @Model.ApplicationUser.Email</span>
+            <span>@Model.ApplicationUser.FirstName @Model.ApplicationUser.LastName, @Model.ApplicationUser.PhoneNumber, @Model.ApplicationUser.Email</span>
         </dd>
     </dl>
 </div>
