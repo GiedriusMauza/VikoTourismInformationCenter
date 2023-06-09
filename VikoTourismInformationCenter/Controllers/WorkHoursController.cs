@@ -64,6 +64,7 @@ namespace VikoTourismInformationCenter.Controllers
         // GET: WorkHours/Create
         public IActionResult Create()
         {
+            ViewData["Place"] = new SelectList(_context.Places, "Id", "Name");
             return View();
         }
 
@@ -72,12 +73,17 @@ namespace VikoTourismInformationCenter.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,DateFrom,DateTo,WeekDays")] WorkHours workHours)
+        public async Task<IActionResult> Create([Bind("Id,DateFrom,DateTo,WeekDays, Place")] WorkHours workHours)
         {
             if (ModelState.IsValid)
             {
+                var placeId = HttpContext.Request.Form["Place"].ToString();
+                var place = await _context.Places.FindAsync(int.Parse(placeId));
+                workHours.Place = place;
+
                 _context.Add(workHours);
                 await _context.SaveChangesAsync();
+                ViewData["Place"] = new SelectList(_context.Places, "Id", "Name", workHours.Place);
                 return RedirectToAction(nameof(Index));
             }
             return View(workHours);

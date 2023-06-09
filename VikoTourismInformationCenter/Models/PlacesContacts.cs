@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace VikoTourismInformationCenter.Models
 {
@@ -10,5 +11,6 @@ namespace VikoTourismInformationCenter.Models
         public ApplicationUser? ApplicationUser { get; set; }
         [Required]
         public Places? Places { get; set; }
+
     }
 }

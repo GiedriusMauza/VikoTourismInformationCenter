@@ -112,13 +112,28 @@ namespace VikoTourismInformationCenter.Controllers
         // GET: Places/Create
         public IActionResult Create()
         {
+            var contacts = _context.PlacesContacts
+                .Include(pc => pc.ApplicationUser)
+                .Select(pc => pc.ApplicationUser)
+                .Distinct()
+                .ToList();
+
+            var categories = _context.PlacesCategories
+                    .Include(pc => pc.Category)
+                    .Select(pc => pc.Category)
+                    .Distinct()
+                    .ToList();
+
             var addresses = _context.Addresses.Select(a => new
             {
                 a.Id,
                 FullAddress = $"{a.Street}, {a.City}, {a.HouseNo}"
             }).ToList();
 
+            ViewData["Categories"] = new SelectList(categories, "Id", "Name");
+            ViewData["Contacts"] = new SelectList(contacts, "Id", "FirstName");
             ViewData["Id"] = new SelectList(addresses, "Id", "FullAddress");
+
             return View();
         }
 
@@ -130,8 +145,31 @@ namespace VikoTourismInformationCenter.Controllers
             {
                 try
                 {
+                    string contactId = Request.Form["ApplicationUser"].ToString();
+                    string categoryId = Request.Form["Category"].ToString();
+
                     _context.Add(places);
                     await _context.SaveChangesAsync();
+
+                    var placeContact = new PlacesContacts
+                    {
+                        Places = places,
+                        ApplicationUser = _context.ApplicationUser.Find(contactId)
+                    };
+
+                    _context.Add(placeContact);
+                    await _context.SaveChangesAsync();
+
+
+                    var placeCategory = new PlacesCategories
+                    {
+                        Place = places,
+                        Category = _context.Categories.Find(int.Parse(categoryId))
+                    };
+
+                    _context.Add(placeCategory);
+                    await _context.SaveChangesAsync();
+
                 }
                 catch
                 {
@@ -139,6 +177,11 @@ namespace VikoTourismInformationCenter.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            var contacts = _context.ApplicationUser.ToList();
+            var categories = _context.Categories.ToList();
+
+            ViewData["Categories"] = new SelectList(categories, "Id", "Name");
+            ViewData["Contacts"] = new SelectList(contacts, "Id", "FirstName");
             ViewData["Id"] = new SelectList(_context.Addresses, "Id", "City", places.Id);
             return View(places);
         }
@@ -226,14 +269,22 @@ namespace VikoTourismInformationCenter.Controllers
             {
                 _context.Places.Remove(places);
             }
-            
-            await _context.SaveChangesAsync();
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+                TempData[SD.Error] = "Error. Place has assigned values!";
+                return RedirectToAction(nameof(Index));
+            }
             return RedirectToAction(nameof(Index));
         }
 
         private bool PlacesExists(int id)
         {
-          return (_context.Places?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Places?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

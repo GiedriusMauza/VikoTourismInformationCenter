@@ -31,6 +31,7 @@ namespace VikoTourismInformationCenter.Models
         [NotMapped]
         public IEnumerable<SelectListItem>? ResidentGroupList { get; set; }
 
-
+        [NotMapped]
+        public ICollection<PlacesContacts>? PlacesContacts { get; set; }
     }
 }

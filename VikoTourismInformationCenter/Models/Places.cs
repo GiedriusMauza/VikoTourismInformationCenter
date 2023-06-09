@@ -20,5 +20,9 @@ namespace VikoTourismInformationCenter.Models
         [NotMapped]
         [Display(Name = "Category Name")]
         public string? CategoryName { get; set; }
+        [NotMapped]
+        public ApplicationUser? ApplicationUser { get; set; }
+        [NotMapped]
+        public Categories? Category { get; set; }
     }
 }
