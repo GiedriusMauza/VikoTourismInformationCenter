@@ -22,6 +22,7 @@ namespace VikoTourismInformationCenter.Controllers
         }
 
         // GET: WorkHours
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IActionResult> Index()
         {
             var workHoursList = await _context.WorkHours.ToListAsync();
@@ -44,6 +45,7 @@ namespace VikoTourismInformationCenter.Controllers
         }
 
         // GET: WorkHours/Details/5
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.WorkHours == null)
@@ -62,6 +64,7 @@ namespace VikoTourismInformationCenter.Controllers
         }
 
         // GET: WorkHours/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             ViewData["Place"] = new SelectList(_context.Places, "Id", "Name");
@@ -69,8 +72,7 @@ namespace VikoTourismInformationCenter.Controllers
         }
 
         // POST: WorkHours/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,DateFrom,DateTo,WeekDays, Place")] WorkHours workHours)
@@ -90,6 +92,7 @@ namespace VikoTourismInformationCenter.Controllers
         }
 
         // GET: WorkHours/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.WorkHours == null)
@@ -106,8 +109,7 @@ namespace VikoTourismInformationCenter.Controllers
         }
 
         // POST: WorkHours/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,DateFrom,DateTo,WeekDays")] WorkHours workHours)
@@ -141,6 +143,7 @@ namespace VikoTourismInformationCenter.Controllers
         }
 
         // GET: WorkHours/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.WorkHours == null)
@@ -159,6 +162,7 @@ namespace VikoTourismInformationCenter.Controllers
         }
 
         // POST: WorkHours/Delete/5
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

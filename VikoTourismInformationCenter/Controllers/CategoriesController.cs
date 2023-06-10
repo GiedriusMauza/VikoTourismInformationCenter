@@ -22,6 +22,7 @@ namespace VikoTourismInformationCenter.Controllers
         }
 
         // GET: Categories
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IActionResult> Index(string search)
         {
             //Index action method will return a view with a student records based on what a user specify the value in textbox  
@@ -29,6 +30,7 @@ namespace VikoTourismInformationCenter.Controllers
         }
 
         // GET: Categories/Details/5
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Categories == null)
@@ -47,14 +49,14 @@ namespace VikoTourismInformationCenter.Controllers
         }
 
         // GET: Categories/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
         }
 
         // POST: Categories/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name")] Categories categories)
@@ -69,6 +71,7 @@ namespace VikoTourismInformationCenter.Controllers
         }
 
         // GET: Categories/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Categories == null)
@@ -85,8 +88,7 @@ namespace VikoTourismInformationCenter.Controllers
         }
 
         // POST: Categories/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] Categories categories)
@@ -120,6 +122,7 @@ namespace VikoTourismInformationCenter.Controllers
         }
 
         // GET: Categories/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Categories == null)
@@ -138,6 +141,7 @@ namespace VikoTourismInformationCenter.Controllers
         }
 
         // POST: Categories/Delete/5
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

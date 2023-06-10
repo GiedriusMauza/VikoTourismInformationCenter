@@ -21,6 +21,7 @@ namespace VikoTourismInformationCenter.Controllers
             _context = context;
         }
 
+        [Authorize(Roles = "Admin,Manager")]
         [HttpGet]
         public async Task<IActionResult> Index(string option, string search)
         {
@@ -141,6 +142,7 @@ namespace VikoTourismInformationCenter.Controllers
         }
 
         // GET: Excursions/Details/5
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Excursions == null)
@@ -187,6 +189,7 @@ namespace VikoTourismInformationCenter.Controllers
         }
 
         // GET: Excursions/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             ViewData["User"] = new SelectList(_context.ApplicationUser, "Id", "FirstName");
@@ -216,6 +219,7 @@ namespace VikoTourismInformationCenter.Controllers
         }
 
         // GET: Excursions/Edit/5
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Excursions == null)
@@ -232,8 +236,7 @@ namespace VikoTourismInformationCenter.Controllers
         }
 
         // POST: Excursions/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin,Manager")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Price")] Excursions excursions)
@@ -267,6 +270,7 @@ namespace VikoTourismInformationCenter.Controllers
         }
 
         // GET: Excursions/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Excursions == null)
@@ -285,6 +289,7 @@ namespace VikoTourismInformationCenter.Controllers
         }
 
         // POST: Excursions/Delete/5
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -303,6 +308,7 @@ namespace VikoTourismInformationCenter.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [Authorize(Roles = "Admin,Manager")]
         private bool ExcursionsExists(int id)
         {
             return (_context.Excursions?.Any(e => e.Id == id)).GetValueOrDefault();

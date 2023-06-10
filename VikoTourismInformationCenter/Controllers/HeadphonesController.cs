@@ -22,6 +22,7 @@ namespace VikoTourismInformationCenter.Controllers
         }
 
         // GET: Headphones
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IActionResult> Index(string search)
         {
             var headphonesList = await _context.Headphones.ToListAsync();
@@ -52,6 +53,7 @@ namespace VikoTourismInformationCenter.Controllers
         }
 
         // GET: Headphones/Details/5
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Headphones == null)
@@ -70,6 +72,7 @@ namespace VikoTourismInformationCenter.Controllers
         }
 
         // GET: Headphones/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             ViewData["Excursions"] = new SelectList(_context.Excursions, "Id", "Name");
@@ -77,8 +80,7 @@ namespace VikoTourismInformationCenter.Controllers
         }
 
         // POST: Headphones/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Model")] Headphones headphones)
@@ -98,6 +100,7 @@ namespace VikoTourismInformationCenter.Controllers
         }
 
         // GET: Headphones/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Headphones == null)
@@ -114,8 +117,7 @@ namespace VikoTourismInformationCenter.Controllers
         }
 
         // POST: Headphones/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Model")] Headphones headphones)
@@ -149,6 +151,7 @@ namespace VikoTourismInformationCenter.Controllers
         }
 
         // GET: Headphones/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Headphones == null)
@@ -167,6 +170,7 @@ namespace VikoTourismInformationCenter.Controllers
         }
 
         // POST: Headphones/Delete/5
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -185,6 +189,7 @@ namespace VikoTourismInformationCenter.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [Authorize(Roles = "Admin")]
         private bool HeadphonesExists(int id)
         {
           return (_context.Headphones?.Any(e => e.Id == id)).GetValueOrDefault();

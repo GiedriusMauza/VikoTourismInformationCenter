@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis.Options;
@@ -21,6 +23,7 @@ namespace VikoTourismInformationCenter.Controllers
         }
 
         // GET: Places
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Places.Include(p => p.Addresses);
@@ -67,6 +70,7 @@ namespace VikoTourismInformationCenter.Controllers
         }
 
         // GET: Places/Details/5
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Places == null)
@@ -110,6 +114,7 @@ namespace VikoTourismInformationCenter.Controllers
         }
 
         // GET: Places/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             var contacts = _context.PlacesContacts
@@ -137,6 +142,7 @@ namespace VikoTourismInformationCenter.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,Description")] Places places)
@@ -187,6 +193,7 @@ namespace VikoTourismInformationCenter.Controllers
         }
 
         // GET: Places/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Places == null)
@@ -203,6 +210,7 @@ namespace VikoTourismInformationCenter.Controllers
             return View(places);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description")] Places places)
@@ -237,6 +245,7 @@ namespace VikoTourismInformationCenter.Controllers
         }
 
         // GET: Places/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Places == null)
@@ -256,6 +265,7 @@ namespace VikoTourismInformationCenter.Controllers
         }
 
         // POST: Places/Delete/5
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

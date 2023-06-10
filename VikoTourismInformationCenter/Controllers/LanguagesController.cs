@@ -24,6 +24,7 @@ namespace VikoTourismInformationCenter.Controllers
         }
 
         // GET: Languages
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IActionResult> Index(string search, string sortOrder)
         {
 
@@ -53,6 +54,7 @@ namespace VikoTourismInformationCenter.Controllers
         }
 
         // GET: Languages/Details/5
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Languages == null)
@@ -71,14 +73,14 @@ namespace VikoTourismInformationCenter.Controllers
         }
 
         // GET: Languages/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
         }
 
         // POST: Languages/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Language")] Languages languages)
@@ -93,6 +95,7 @@ namespace VikoTourismInformationCenter.Controllers
         }
 
         // GET: Languages/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Languages == null)
@@ -109,8 +112,7 @@ namespace VikoTourismInformationCenter.Controllers
         }
 
         // POST: Languages/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Language")] Languages languages)
@@ -144,6 +146,7 @@ namespace VikoTourismInformationCenter.Controllers
         }
 
         // GET: Languages/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Languages == null)
@@ -162,6 +165,7 @@ namespace VikoTourismInformationCenter.Controllers
         }
 
         // POST: Languages/Delete/5
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
