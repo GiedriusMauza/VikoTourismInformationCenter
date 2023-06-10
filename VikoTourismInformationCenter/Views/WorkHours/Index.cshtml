@@ -1,62 +1,69 @@
 ﻿@model IEnumerable<VikoTourismInformationCenter.Models.WorkHours>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Work Hours";
 }
-
-<h1>Work Hours</h1>
-@if (ViewContext.HttpContext.User.IsInRole("Admin"))
-{
-    <p>
-        <a asp-action="Create">Create New</a>
-    </p>
-}
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.DateFrom)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateTo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.WeekDays)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Place)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
+<div class="row">
+    <div class="col-6">
+        <h2>Work Hours</h2>
+    </div>
+    <div class="col-6">
+        @if (ViewContext.HttpContext.User.IsInRole("Admin"))
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DateFrom)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DateTo)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.WeekDays)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PlaceName)
-                </td>
-                <td>
-                    @if (ViewContext.HttpContext.User.IsInRole("Admin"))
-                    {
-                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-                    }
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a>
-                    @if (ViewContext.HttpContext.User.IsInRole("Admin"))
-                    {
-                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                    }
-                </td>
-            </tr>
+            <p>
+                <a class="btn btn-primary float-end" asp-action="Create">Create New</a>
+            </p>
         }
-    </tbody>
-</table>
+    </div>
+</div>
+<div class="p-4 border rounded">
+    <table class="table table-light table-hover border">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.DateFrom)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DateTo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.WeekDays)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Place)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateFrom)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateTo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.WeekDays)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PlaceName)
+                    </td>
+                    <td>
+                        @if (ViewContext.HttpContext.User.IsInRole("Admin"))
+                        {
+                            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                        }
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+                        @if (ViewContext.HttpContext.User.IsInRole("Admin"))
+                        {
+                            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

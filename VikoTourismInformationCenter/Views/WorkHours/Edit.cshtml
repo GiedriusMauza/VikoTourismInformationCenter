@@ -13,22 +13,22 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
-            <div class="form-group">
+            <div class="form-group mt-2">
                 <label asp-for="DateFrom" class="control-label"></label>
                 <input asp-for="DateFrom" class="form-control" />
                 <span asp-validation-for="DateFrom" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group mt-2">
                 <label asp-for="DateTo" class="control-label"></label>
                 <input asp-for="DateTo" class="form-control" />
                 <span asp-validation-for="DateTo" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group mt-2">
                 <label asp-for="WeekDays" class="control-label"></label>
                 <input asp-for="WeekDays" class="form-control" />
                 <span asp-validation-for="WeekDays" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group mt-2 mb-2">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
