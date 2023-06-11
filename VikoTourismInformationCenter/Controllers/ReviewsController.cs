@@ -12,7 +12,7 @@ using VikoTourismInformationCenter.Models;
 
 namespace VikoTourismInformationCenter.Controllers
 {
-    [Authorize]
+
     public class ReviewsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -40,7 +40,7 @@ namespace VikoTourismInformationCenter.Controllers
                 {
                     review.PlaceName = "None";
                 }
-                
+
             }
 
             return View(reviewsList);
@@ -66,7 +66,7 @@ namespace VikoTourismInformationCenter.Controllers
         }
 
         // GET: Reviews/Create
-        [Authorize(Roles = "Admin")]
+        [AllowAnonymous]
         public IActionResult Create()
         {
             ViewData["Place"] = new SelectList(_context.Places, "Id", "Name");
@@ -74,7 +74,7 @@ namespace VikoTourismInformationCenter.Controllers
         }
 
         // POST: Reviews/Create
-        [Authorize(Roles = "Admin")]
+        [AllowAnonymous]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,Comment,Date,Place")] Reviews reviews)
@@ -88,10 +88,10 @@ namespace VikoTourismInformationCenter.Controllers
                 _context.Add(reviews);                
                 await _context.SaveChangesAsync();
                 ViewData["Place"] = new SelectList(_context.Places, "Id", "Name", reviews.Place);
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Home");
             }
             
-            return View(reviews);
+            return View(Index);
         }
 
         // GET: Reviews/Edit/5
